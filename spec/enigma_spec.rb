@@ -10,6 +10,8 @@ RSpec.describe Enigma do
   end
 
   it 'generates a random five digit number' do
+    key_gen_mock = ("01234")
+    allow(key_gen_mock).to receive(:key_generator).and_return("01234")
     expect(@enigma.key_generator).to be_a (String)
     expect(@enigma.key_generator.length).to eq (5)
   end
@@ -22,6 +24,4 @@ RSpec.describe Enigma do
   xit 'can encrypt a message' do
     expect(@enigma.encrypt("hello world", "02715", "040895")).to eq ({encryption: "keder ohulw", key: "02715", date: "040895"})
   end
-
-  
 end 
