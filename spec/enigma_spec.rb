@@ -5,8 +5,11 @@ RSpec.describe Enigma do
   before(:each) do
     @enigma = Enigma.new
   end
-  it 'exists' do
+  it 'exists and has 27 characters' do
     expect(@enigma).to be_a (Enigma)
+    expect(@enigma.alphabet.count).to eq (27)
+    expect(@enigma.first).to eq ("a")
+    expect(@enigma.last).to eq (" ")
   end
 
   it 'generates a random five digit number' do
@@ -20,6 +23,8 @@ RSpec.describe Enigma do
     expect(@enigma.todays_date).to be_a (String)
     expect(@enigma.todays_date.length).to eq (6)
   end
+
+  it 'returns '
 
   xit 'can encrypt a message' do
     expect(@enigma.encrypt("hello world", "02715", "040895")).to eq ({encryption: "keder ohulw", key: "02715", date: "040895"})
