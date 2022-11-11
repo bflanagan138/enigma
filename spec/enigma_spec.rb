@@ -19,6 +19,11 @@ RSpec.describe Enigma do
     expect(@enigma.key_generator.length).to eq (5)
   end
 
+  it 'divides key generator number into 4 keys' do
+    key_gen_mock = ("01234")
+    expect(@enigma.keys).to eq [01, 12, 23, 34]
+  end
+
   it 'returns todays date as a string' do
     expect(@enigma.todays_date).to be_a (String)
     expect(@enigma.todays_date.length).to eq (6)
