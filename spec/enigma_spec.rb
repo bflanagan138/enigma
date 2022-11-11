@@ -10,6 +10,7 @@ RSpec.describe Enigma do
   end
 
   it 'generates a random five digit number' do
+    expect(@enigma.key_generator).to be_a (String)
     expect(@enigma.key_generator.length).to eq (5)
   end
 
