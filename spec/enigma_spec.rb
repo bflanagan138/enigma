@@ -38,6 +38,11 @@ RSpec.describe Enigma do
     expect(@enigma.offsets.length).to eq (4)
   end
 
+  it 'creates a final shift from keys and offsets' do
+    expect(@enigma.final_shift).to be_a (Array)
+    expect(@enigma.offsets.length).to eq (4)
+  end
+
   xit 'can encrypt a message' do
     expect(@enigma.encrypt("hello world", "02715", "040895")).to eq ({encryption: "keder ohulw", key: "02715", date: "040895"})
   end

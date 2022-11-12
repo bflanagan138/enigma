@@ -1,12 +1,15 @@
 class Enigma
-  attr_reader :character_set
+  attr_reader :character_set, 
+              :final_shift
   def initialize
     @character_set = ("a".."z").to_a << " "
+    @final_shift = {}
   end
 
   #helper method for encrypt
   def key_generator
     rand(99999).to_s.rjust(5, "0")
+    # "12345"
   end
   
   #helper method for encrypt
@@ -29,11 +32,10 @@ class Enigma
     ((todays_date.to_i * todays_date.to_i)%10000).to_s.chars.map(&:to_i)
   end
 
-  #shift conventions
-    #a_shift = a_key + a_offset
-    #b_shift = b_key + b_offset
-    #c_shift = c_key + c_offset
-    #d_shift = d_key + d_offset
+  def final_shift
+    [keys, offsets].transpose.map { |number| number.sum}
+    # require 'pry'; binding.pry
+  end
 
   def encrypt(message, shift = key_generator, offset = todays_date)
     message.split('')
