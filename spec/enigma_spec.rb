@@ -12,21 +12,30 @@ RSpec.describe Enigma do
     expect(@enigma.character_set.last).to eq (" ")
   end
 
+  #add mocks and stubs to test fully
   it 'generates a random five digit number' do
-    key_gen_mock = ("01234")
-    allow(key_gen_mock).to receive(:key_generator).and_return("01234")
     expect(@enigma.key_generator).to be_a (String)
     expect(@enigma.key_generator.length).to eq (5)
+    # expect(@enigma.key_generator).to eq ("01234")
+    
   end
 
-  it 'divides key generator number into 4 keys' do
-    key_gen_mock = ("01234")
-    expect(@enigma.keys).to eq [01, 12, 23, 34]
+  it 'creates an array of 4 key strings from the return value of the key generator' do
+    # key_gen_mock = ("12345")
+    # allow(key_gen_mock).to receive(:key_generator).and_return("12345")
+    expect(@enigma.keys.length).to eq (4)
+    expect(@enigma.keys).to be_a (Array)
+    # expect(@enigma.keys).to eq ([12, 23, 34, 45])
   end
 
   it 'returns todays date as a string' do
     expect(@enigma.todays_date).to be_a (String)
     expect(@enigma.todays_date.length).to eq (6)
+  end
+
+  it 'creates an array of 4 offset based on the date' do
+    expect(@enigma.offset).to be_a (Array)
+    expect(@enigma.offset.length).to eq (4)
   end
 
   xit 'can encrypt a message' do
