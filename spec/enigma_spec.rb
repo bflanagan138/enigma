@@ -34,8 +34,8 @@ RSpec.describe Enigma do
   end
 
   it 'creates an array of 4 offset based on the date' do
-    expect(@enigma.offset).to be_a (Array)
-    expect(@enigma.offset.length).to eq (4)
+    expect(@enigma.offsets).to be_a (Array)
+    expect(@enigma.offsets.length).to eq (4)
   end
 
   xit 'can encrypt a message' do

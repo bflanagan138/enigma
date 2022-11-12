@@ -1,9 +1,7 @@
 class Enigma
-  attr_reader :character_set, 
-              :keys
+  attr_reader :character_set
   def initialize
     @character_set = ("a".."z").to_a << " "
-    @keys = []
   end
 
   #helper method for encrypt
@@ -16,9 +14,21 @@ class Enigma
     Date.today.strftime("%D").delete("/")
   end
   
+  #helper method for shift. Refactor with .rotate and 4.times do?
   def keys
-    require 'pry'; binding.pry
+    final_keys = []
+    split_keys = key_generator.split("")
+    final_keys << (split_keys[0] + split_keys[1]).to_i
+    final_keys << (split_keys[1] + split_keys[2]).to_i
+    final_keys << (split_keys[2] + split_keys[3]).to_i
+    final_keys << (split_keys[3] + split_keys[4]).to_i
+    final_keys
   end
+
+  def offsets
+    ((todays_date.to_i * todays_date.to_i)%10000).to_s.chars.map(&:to_i)
+  end
+
   #shift conventions
     #a_shift = a_key + a_offset
     #b_shift = b_key + b_offset
