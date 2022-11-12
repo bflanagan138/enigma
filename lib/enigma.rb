@@ -1,9 +1,7 @@
 class Enigma
-  attr_reader :character_set, 
-              :final_shift
+  attr_reader :character_set
   def initialize
     @character_set = ("a".."z").to_a << " "
-    @final_shift = {}
   end
 
   #helper method for encrypt
@@ -34,10 +32,9 @@ class Enigma
 
   def final_shift
     [keys, offsets].transpose.map { |number| number.sum}
-    # require 'pry'; binding.pry
   end
 
-  def encrypt(message, shift = key_generator, offset = todays_date)
-    message.split('')
+  def encrypt
+    
   end
 end
