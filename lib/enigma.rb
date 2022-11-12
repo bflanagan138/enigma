@@ -7,7 +7,6 @@ class Enigma
   #helper method for encrypt
   def key_generator
     rand(99999).to_s.rjust(5, "0")
-    # "12345"
   end
   
   #helper method for encrypt
@@ -34,7 +33,23 @@ class Enigma
     [keys, offsets].transpose.map { |number| number.sum}
   end
 
-  def encrypt
+  def encrypt(message, key = key_generator, date = offsets)
+    numeric = []
+    message.bytes.each do |letter|
+      if letter == 32
+        numeric << letter - 5
+      elsif (97..122).include?(letter)
+        numeric << letter - 96
+      else
+        numeric << letter
+        numeric.delete(letter)
+      end
+    end
     
+    # require 'pry'; binding.pry
+    # split_message = message.split("")
+    # position = split_message.map { |letter| letter.bytes - 96 }
+    # char_pos = characters.zip(position)
+ 
   end
 end
