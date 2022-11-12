@@ -40,7 +40,7 @@ RSpec.describe Enigma do
 
   it 'creates a final shift from keys and offsets' do
     expect(@enigma.final_shift).to be_a (Array)
-    expect(@enigma.offsets.length).to eq (4)
+    expect(@enigma.final_shift.length).to eq (4)
   end
 
   xit 'can encrypt a message' do
