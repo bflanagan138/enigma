@@ -35,21 +35,34 @@ class Enigma
 
   def encrypt(message, key = key_generator, date = offsets)
     numeric = []
-    message.bytes.each do |letter|
+    x = message.bytes.each do |letter|
       if letter == 32
         numeric << letter - 5
       elsif (97..122).include?(letter)
         numeric << letter - 96
-      else
-        numeric << letter
-        numeric.delete(letter)
+      # else
+        # extension to deal with special characters
+        # numeric << letter.bytes.reverse
+        # numeric << letter
       end
     end
-    
+    # require 'pry'; binding.pry
+    conversion = []
+    numeric.each do |number|
+      if (numeric.find_index(number) + 1)%4 == 0
+        conversion << number + keys[3]
+      elsif (numeric.find_index(number) + 1)%3 == 0
+        conversion << number + keys[2]
+      elsif (numeric.find_index(number) + 1)%2 == 0
+        conversion << number + keys[1]
+      else (numeric.find_index(number) + 1)%1 == 0
+        conversion << number + keys[0]
+      end
     # require 'pry'; binding.pry
     # split_message = message.split("")
     # position = split_message.map { |letter| letter.bytes - 96 }
     # char_pos = characters.zip(position)
- 
+    end
+    require 'pry'; binding.pry
   end
 end
