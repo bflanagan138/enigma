@@ -33,7 +33,7 @@ RSpec.describe Enigma do
     expect(@enigma.todays_date.length).to eq (6)
   end
 
-  it 'creates an array of 4 offset based on the date' do
+  it 'creates an array of 4 offsets based on the date' do
     expect(@enigma.offsets).to be_a (Array)
     expect(@enigma.offsets.length).to eq (4)
   end
