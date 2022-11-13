@@ -1,14 +1,20 @@
 class Enigma
-  attr_reader :character_set
+  attr_reader :character_set,
+              :key
   def initialize
     @character_set = ("a".."z").to_a << " "
+    @key = nil
   end
 
-  #helper method for encrypt
   def key_generator
-    rand(99999).to_s.rjust(5, "0")
-    # "02715"
+    @key =
+      if @key.nil?
+        rand(99999).to_s.rjust(5, "0")
+      else
+        @key
+      end
   end
+
   
   #helper method for encrypt
   def todays_date
@@ -16,16 +22,15 @@ class Enigma
     # "040895"
   end
   
-  #helper method for final_shift. Refactor with .rotate and 4.times do?
-  def keys
+   def key_to_four_pairs
     final_keys = []
     split_keys = key_generator.split("")
-    final_keys << (split_keys[0] + split_keys[1]).to_i
-    final_keys << (split_keys[1] + split_keys[2]).to_i
-    final_keys << (split_keys[2] + split_keys[3]).to_i
-    final_keys << (split_keys[3] + split_keys[4]).to_i
+    4.times do |i|
+      final_keys << (split_keys[i] + split_keys[i + 1]).to_i
+    end
     final_keys
   end
+
 
   def offsets
     ((todays_date.to_i ** 2)%10000).to_s.chars.map(&:to_i)
