@@ -7,11 +7,13 @@ class Enigma
   #helper method for encrypt
   def key_generator
     rand(99999).to_s.rjust(5, "0")
+    # "02715"
   end
   
   #helper method for encrypt
   def todays_date
     Date.today.strftime("%D").delete("/")
+    # "040895"
   end
   
   #helper method for final_shift. Refactor with .rotate and 4.times do?
@@ -30,19 +32,27 @@ class Enigma
   end
 
   def final_shift
-    keys = [42, 28, 84, 43]
-    offsets = [7, 6, 8, 4]
-    require 'pry'; binding.pry
-    [keys, offsets].transpose.map { |number| number.sum%27}
+    # require 'pry'; binding.pry
+    [keys, offsets].transpose.map do |number| 
+      # require 'pry'; binding.pry
+      number.sum
+    end
   end
 
-  def encrypt(message, keys = key_generator, offsets = date)
+  def encrypt(message, keys = "", offsets = "")
+    if keys == ""
+      keys = key_generator
+    end
+    if offsets == ""
+      offsets = todays_date
+    end
     numeric = []
     message.bytes.each do |letter|
+      require 'pry'; binding.pry
       if letter == 32
-        numeric << letter - 5
+        numeric << letter - 6
       elsif (97..122).include?(letter)
-        numeric << letter - 96
+        numeric << (letter - 96)
         # else 
         #message.bytes.reverse
         #figure out how to do above, ignore any other characters, return themselves
@@ -52,18 +62,24 @@ class Enigma
     # require 'pry'; binding.pry
     numeric.each do |number|
       if (numeric.find_index(number) + 1)%4 == 0
-        # require 'pry'; binding.pry
-        conversion << number + final_shift[3]
+        conversion << (number + final_shift[3])%27
+        require 'pry'; binding.pry
       elsif (numeric.find_index(number) + 1)%3 == 0
-        conversion << number + final_shift[2]
+        conversion << (number + final_shift[2])%27
+        require 'pry'; binding.pry
       elsif (numeric.find_index(number) + 1)%2 == 0
-        conversion << number + final_shift[1]
+        conversion << (number + final_shift[1])%27
+        require 'pry'; binding.pry
       else (numeric.find_index(number) + 1)%1 == 0
-        conversion << number + final_shift[0]
+        conversion << (number + final_shift[0])%27
+        require 'pry'; binding.pry
       end
     end
     # require 'pry'; binding.pry
-    conversion
+    # conversion.map do |number|
+    #   # require 'pry'; binding.pry
+    #   @character_set[number]
+  
   end
 
 end
