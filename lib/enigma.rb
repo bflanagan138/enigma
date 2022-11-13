@@ -14,7 +14,7 @@ class Enigma
     Date.today.strftime("%D").delete("/")
   end
   
-  #helper method for shift. Refactor with .rotate and 4.times do?
+  #helper method for final_shift. Refactor with .rotate and 4.times do?
   def keys
     final_keys = []
     split_keys = key_generator.split("")
@@ -30,10 +30,12 @@ class Enigma
   end
 
   def final_shift
-    # require 'pry'; binding.pry
-    [keys, offsets].transpose.map { |number| number.sum}
+    keys = [42, 28, 84, 43]
+    offsets = [7, 6, 8, 4]
+    require 'pry'; binding.pry
+    [keys, offsets].transpose.map { |number| number.sum%27}
   end
-  
+
   def encrypt(message, keys = key_generator, offsets = date)
     numeric = []
     message.bytes.each do |letter|
