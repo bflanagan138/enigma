@@ -14,7 +14,7 @@ RSpec.describe Enigma do
 
   #add mocks and stubs to test fully
   it 'generates a random five digit number' do
-    expect(@enigma.key_generator).to be_a (String)
+    expect(@enigma.key_generator).to be_a (Integer)
     expect(@enigma.key_generator.length).to eq (5)
     # expect(@enigma.key_generator).to eq ("01234")
     
@@ -41,6 +41,8 @@ RSpec.describe Enigma do
   it 'creates a final shift from keys and offsets' do
     expect(@enigma.final_shift).to be_a (Array)
     expect(@enigma.final_shift.length).to eq (4)
+    #optional arguments? mocks/stubs?
+    # expect(@enigma.final_shift("02715", "040895")).to eq([3, 27, 73, 20]).
   end
 
   it 'can encrypt a message' do

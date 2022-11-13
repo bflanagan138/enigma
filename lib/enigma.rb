@@ -29,9 +29,12 @@ class Enigma
     ((todays_date.to_i ** 2)%10000).to_s.chars.map(&:to_i)
   end
 
+  def final_shift
+    # require 'pry'; binding.pry
+    [keys, offsets].transpose.map { |number| number.sum}
+  end
   
   def encrypt(message, keys = key_generator, offsets = date)
-
     numeric = []
     message.bytes.each do |letter|
       if letter == 32
@@ -44,10 +47,10 @@ class Enigma
       end
     end
     conversion = []
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     numeric.each do |number|
       if (numeric.find_index(number) + 1)%4 == 0
-        require 'pry'; binding.pry
+        # require 'pry'; binding.pry
         conversion << number + final_shift[3]
       elsif (numeric.find_index(number) + 1)%3 == 0
         conversion << number + final_shift[2]
@@ -57,11 +60,8 @@ class Enigma
         conversion << number + final_shift[0]
       end
     end
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     conversion
   end
-end
-def final_shift
-  require 'pry'; binding.pry
-  [keys, offsets].transpose.map { |number| number.sum}
+
 end
