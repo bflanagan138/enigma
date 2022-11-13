@@ -29,21 +29,25 @@ class Enigma
     ((todays_date.to_i ** 2)%10000).to_s.chars.map(&:to_i)
   end
 
+  
   def encrypt(message, keys = key_generator, offsets = date)
+
     numeric = []
     message.bytes.each do |letter|
       if letter == 32
         numeric << letter - 5
       elsif (97..122).include?(letter)
         numeric << letter - 96
-      # else 
+        # else 
         #message.bytes.reverse
         #figure out how to do above, ignore any other characters, return themselves
       end
     end
     conversion = []
+    require 'pry'; binding.pry
     numeric.each do |number|
       if (numeric.find_index(number) + 1)%4 == 0
+        require 'pry'; binding.pry
         conversion << number + final_shift[3]
       elsif (numeric.find_index(number) + 1)%3 == 0
         conversion << number + final_shift[2]
@@ -56,8 +60,8 @@ class Enigma
     require 'pry'; binding.pry
     conversion
   end
-
-  def final_shift
-    [keys, offsets].transpose.map { |number| number.sum}
-  end
+end
+def final_shift
+  require 'pry'; binding.pry
+  [keys, offsets].transpose.map { |number| number.sum}
 end
