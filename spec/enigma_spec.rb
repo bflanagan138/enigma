@@ -43,9 +43,6 @@ RSpec.describe Enigma do
   it 'creates a final shift from keys and offsets' do
     expect(@enigma.final_shift).to be_a (Array)
     expect(@enigma.final_shift.length).to eq (4)
-    # @enigma.key_to_four_pairs.each.with_index do |offset, index|
-    #   expect(@enigma.final_shift[index]).to eq @enigma.offsets[index] + @enigma.key_to_four_pairs[index]
-    # end
   end
 
   it 'can convert message to index numbers in alphabet' do
@@ -74,7 +71,7 @@ RSpec.describe Enigma do
     })
   end
 
-  xit 'can decrypt a message' do
+  it 'can decrypt a message' do
     expect(@enigma.decrypt('keder ohulw', '02715', '040895')).to eq ({
       encryption: 'hello world',
       key: '02715',

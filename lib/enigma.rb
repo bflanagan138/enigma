@@ -31,8 +31,8 @@ class Enigma
     final_keys
   end
 
-  def convert_offset(number)
-    ((number.to_i ** 2) % 10000).to_s.chars.map(&:to_i)
+  def convert_offset(date_string)
+    ((date_string.to_i ** 2) % 10000).to_s.chars.map(&:to_i)
   end
 
   def final_shift
@@ -75,7 +75,7 @@ class Enigma
           convert_offset(todays_date)
         else
           convert_offset(offsets)
-        end
+        end 
 
     message_to_numeric = message_to_char_index(message)
     message_char_shift = []
@@ -101,16 +101,21 @@ class Enigma
     }
   end
 
-  def decrypt(encrypted_message, key, offsets = '')
-    @offsets =
-      if offsets == ''
-        convert_offset(todays_date)
+  def decrypt(encrypted_message, keys = '', offsets = '')
+    @key = 
+      if keys == ''
+        key_generator
       else
-        convert_offset(offsets)
+        keys
       end
+      @offsets =
+        if offsets == ''
+          convert_offset(todays_date)
+        else
+          convert_offset(offsets)
+        end
 
       encrypted_message_to_numeric = message_to_char_index(encrypted_message)
-      # require 'pry'; binding.pry
       character_shift = []
       encrypted_message_to_numeric.each.with_index do |number, index|
         if number.class != Integer
@@ -119,10 +124,12 @@ class Enigma
           character_shift << unshift_number(number, final_shift[index % 4])
         end
       end
-        # require 'pry'; binding.pry
-     
+     decrypted_message = []
+      character_shift.each do |character|
+        decrypted_message << @character_set.fetch(character)
+     end
     {
-      encryption: decrypted_message,
+      encryption: decrypted_message.join.to_s,
       key: @key,
       date: offsets
     }
