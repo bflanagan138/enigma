@@ -54,7 +54,7 @@ class Enigma
   end
 
   def shift_number(number, shift_number)
-    (number + shift_number) % 27
+    (number + shift_number) %27
   end
 
   #WIP for decrypt
@@ -115,18 +115,23 @@ class Enigma
           convert_offset(offsets)
         end
 
-      encrypted_message_to_numeric = message_to_char_index(encrypted_message)
-      character_shift = []
-      encrypted_message_to_numeric.each.with_index do |number, index|
-        if number.class != Integer
-          character_shift << number
-        else
-          character_shift << unshift_number(number, final_shift[index % 4])
+        encrypted_message_to_numeric = message_to_char_index(encrypted_message)
+        character_shift = []
+        encrypted_message_to_numeric.each.with_index do |character, index|
+          if character.class != Integer
+            character_shift << character
+          else
+            character_shift << unshift_number(character, final_shift[index % 4])
+          end
         end
-      end
-     decrypted_message = []
+
+      decrypted_message = []
       character_shift.each do |character|
-        decrypted_message << @character_set.fetch(character)
+        if character.class != Integer
+          decrypted_message << character
+        else
+          decrypted_message << @character_set.fetch(character)
+        end
      end
     {
       encryption: decrypted_message.join.to_s,
