@@ -1,9 +1,12 @@
 class Enigma
-  attr_reader :character_set,
-              :key
+  attr_reader :character_set, 
+              :key, 
+              :offsets
+
   def initialize
     @character_set = ("a".."z").to_a << " "
     @key = nil
+    @offsets = nil
   end
 
   def key_generator
@@ -15,14 +18,11 @@ class Enigma
       end
   end
 
-  
-  #helper method for encrypt
   def todays_date
     Date.today.strftime("%D").delete("/")
-    # "040895"
   end
-  
-   def key_to_four_pairs
+
+  def key_to_four_pairs
     final_keys = []
     split_keys = key_generator.split("")
     4.times do |i|
@@ -31,60 +31,57 @@ class Enigma
     final_keys
   end
 
-
-  def offsets
-    ((todays_date.to_i ** 2)%10000).to_s.chars.map(&:to_i)
+  def convert_offset(number)
+    conversion = ((number.to_i ** 2) % 10000).to_s.chars.map(&:to_i)
   end
 
   def final_shift
-    # require 'pry'; binding.pry
-    [keys, offsets].transpose.map do |number| 
-      # require 'pry'; binding.pry
-      number.sum
+    [key_to_four_pairs, offsets].transpose.map(&:sum)
+    
+  end
+
+  def message_to_char_index(message)
+    message.downcase.bytes.map do |letter_to_ascii_char|
+      if letter_to_ascii_char == 32
+        letter_to_ascii_char - 6
+      elsif (97..122).include?(letter_to_ascii_char)
+        letter_to_ascii_char - 97
+      end
     end
   end
 
-  def encrypt(message, keys = "", offsets = "")
-    if keys == ""
-      keys = key_generator
-    end
-    if offsets == ""
-      offsets = todays_date
-    end
-    numeric = []
-    message.bytes.each do |letter|
-      require 'pry'; binding.pry
-      if letter == 32
-        numeric << letter - 6
-      elsif (97..122).include?(letter)
-        numeric << (letter - 96)
-        # else 
-        #message.bytes.reverse
-        #figure out how to do above, ignore any other characters, return themselves
-      end
-    end
-    conversion = []
-    # require 'pry'; binding.pry
-    numeric.each do |number|
-      if (numeric.find_index(number) + 1)%4 == 0
-        conversion << (number + final_shift[3])%27
-        require 'pry'; binding.pry
-      elsif (numeric.find_index(number) + 1)%3 == 0
-        conversion << (number + final_shift[2])%27
-        require 'pry'; binding.pry
-      elsif (numeric.find_index(number) + 1)%2 == 0
-        conversion << (number + final_shift[1])%27
-        require 'pry'; binding.pry
-      else (numeric.find_index(number) + 1)%1 == 0
-        conversion << (number + final_shift[0])%27
-        require 'pry'; binding.pry
-      end
-    end
-    # require 'pry'; binding.pry
-    # conversion.map do |number|
-    #   # require 'pry'; binding.pry
-    #   @character_set[number]
-  
+  def shift_number(number, shift_number)
+    (number + shift_number) % 27
   end
 
+  def encrypt(message, keys = '', offsets = '')
+    @key = 
+      if keys == ''
+        key_generator
+      else
+        keys
+      end
+      
+
+      @offsets =
+        if offsets == ''
+          convert_offset(todays_date)
+        else
+          convert_offset(offsets)
+        end
+    message_to_numeric = message_to_char_index(message)
+    message_char_shift = []
+    message_to_numeric.each.with_index do |number, index|
+      message_char_shift << shift_number(number, final_shift[index % 4])
+    end
+
+    encrypted_message = message_char_shift.map do |char_index|
+      @character_set[char_index]
+    end.join
+    {
+      encryption: encrypted_message,
+      key: @key,
+      date: offsets
+    }
+  end
 end

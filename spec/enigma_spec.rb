@@ -13,7 +13,7 @@ RSpec.describe Enigma do
   end
 
   it 'generates a random five digit number' do
-    expect(@enigma.key_generator).to be_a (Integer)
+    expect(@enigma.key_generator).to be_a String
     expect(@enigma.key_generator.length).to eq (5)
     
   end
@@ -29,26 +29,47 @@ RSpec.describe Enigma do
     expect(@enigma.key_to_four_pairs).to eq key
   end
 
-
   it 'returns todays date as a string' do
     expect(@enigma.todays_date).to be_a (String)
     expect(@enigma.todays_date.length).to eq (6)
   end
 
   it 'creates an array of 4 offsets based on the date' do
-    expect(@enigma.offsets).to be_a (Array)
-    expect(@enigma.offsets.length).to eq (4)
+    expect(@enigma.convert_offset("040895")).to be_a (Array)
+    expect(@enigma.convert_offset("040895").length).to eq (4)
   end
 
   it 'creates a final shift from keys and offsets' do
     expect(@enigma.final_shift).to be_a (Array)
     expect(@enigma.final_shift.length).to eq (4)
-    #optional arguments? mocks/stubs?
-    # expect(@enigma.final_shift("02715", "040895")).to eq([3, 27, 73, 20]).
+    @enigma.key_to_four_pairs.each.with_index do |offset, index|
+      expect(@enigma.final_shift[index]).to eq @enigma.offsets[index] + @enigma.key_to_four_pairs[index]
+    end
+  end
+
+  it 'can convert message to index numbers in alphabet' do
+    expect(@enigma.message_to_char_index('a')).to eq [0]
+    expect(@enigma.message_to_char_index(' ')).to eq [26]
+    expect(@enigma.message_to_char_index('a ')).to eq [0, 26]
+    expect(@enigma.message_to_char_index('A')).to eq [0]
+    expect(@enigma.message_to_char_index('AB')).to eq [0, 1]
+  end
+
+  it 'can shift a number' do
+    expect(@enigma.shift_number(10, 10)).to eq 20
+    expect(@enigma.shift_number(34, 2)).to eq 9
   end
 
   it 'can encrypt a message' do
-    expect(@enigma.encrypt("hello world", "02715", "040895")).to eq ({encryption: "keder ohulw", key: "02715", date: "040895"})
-    # expect(@enigma.encrypt("hello! world!", "02715", "040895")).to eq ({encryption: "keder! ohulw!", key: "02715", date: "040895"})
+    expect(@enigma.encrypt('hello world', '02715', '040895')).to eq ({
+      encryption: 'keder ohulw',
+      key: '02715',
+      date: '040895'
+    })
+    # expect(@enigma.encrypt("hello! world!", "02715", "040895")).to eq ({
+      #encryption: "keder! ohulw!", 
+      #key: "02715", 
+      #date: "040895"
+    #})
   end
-end 
+end
