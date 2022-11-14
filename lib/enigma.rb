@@ -40,9 +40,7 @@ class Enigma
   end
 
   def message_to_char_index(message)
-    # require 'pry'; binding.pry
     message.downcase.split("").map do |character|
-      # require 'pry'; binding.pry
       if !@character_set.include?(character)
         character
       else 
@@ -50,16 +48,6 @@ class Enigma
       end
     end
   end
-
-
-  #   message.downcase.bytes.map do |letter_to_ascii_char|
-  #     if letter_to_ascii_char == 32
-  #       letter_to_ascii_char - 6
-  #     elsif (97..122).include?(letter_to_ascii_char)
-  #       letter_to_ascii_char - 97
-  #     end
-  #   end
-  # end
 
   def shift_number(number, shift_number)
     (number + shift_number) % 27
@@ -72,7 +60,6 @@ class Enigma
       else
         keys
       end
-      
 
       @offsets =
         if offsets == ''
@@ -83,34 +70,22 @@ class Enigma
     message_to_numeric = message_to_char_index(message)
     message_char_shift = []
     message_to_numeric.each.with_index do |number, index|
-      message_char_shift << shift_number(number, final_shift[index % 4])
-    end
-
-    encrypted_message = message_char_shift.map do |char_index|
-      @character_set[char_index]
-    end.join
-    {
-      encryption: encrypted_message,
-      key: @key,
-      date: offsets
-    }
-  end
-
-  def decrypt(message, offsets = '')
-    @offsets =
-      if offsets == ''
-        convert_offset(todays_date)
+      if number.class != Integer 
+        message_char_shift << number
       else
-        convert_offset(offsets)
+        message_char_shift << shift_number(number, final_shift[index % 4])
       end
-    decrypt_to_numeric = message_to_char_index(message)
-    message_char_shift = []
-    message_to_numeric.each.with_index do |number, index|
-      message_char_shift << shift_number(number, final_shift[index % 4])
     end
+    # require 'pry'; binding.pry
 
-    encrypted_message = message_char_shift.map do |char_index|
-      @character_set[char_index]
+    encrypted_message = message_char_shift.map do |character|
+      # require 'pry'; binding.pry
+      if character.class != Integer
+        character
+      else
+        @character_set[character].to_s
+      end
+      # require 'pry'; binding.pry
     end.join
     {
       encryption: encrypted_message,
@@ -118,4 +93,27 @@ class Enigma
       date: offsets
     }
   end
+
+  # def decrypt(message, offsets = '')
+  #   @offsets =
+  #     if offsets == ''
+  #       convert_offset(todays_date)
+  #     else
+  #       convert_offset(offsets)
+  #     end
+  #   decrypt_to_numeric = message_to_char_index(message)
+  #   message_char_shift = []
+  #   message_to_numeric.each.with_index do |number, index|
+  #     message_char_shift << shift_number(number, final_shift[index % 4])
+  #   end
+
+  #   encrypted_message = message_char_shift.map do |char_index|
+  #     @character_set[char_index]
+  #   end.join
+  #   {
+  #     encryption: encrypted_message,
+  #     key: @key,
+  #     date: offsets
+  #   }
+  # end
 end
