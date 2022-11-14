@@ -1,8 +1,12 @@
+require_relative 'enigma'
+require 'date'
+
 message = File.open(ARGV[0], "r")
 incoming_message = message.read
-message.close
-# puts incoming_message
-message_to_encrypt = incoming_message.downcase
+enigma = Enigma.new
+encrypted_message = enigma.encrypt(incoming_message)
+# require 'pry'; binding.pry
+
 writer = File.open(ARGV[1], "w")
-writer.write(message_to_encrypt)
-writer.close
+writer.write(encrypted_message[:encryption])
+puts "created #{ARGV[1]} with the key #{enigma.key} and date #{enigma.offsets} } "

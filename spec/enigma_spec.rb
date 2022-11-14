@@ -12,20 +12,21 @@ RSpec.describe Enigma do
     expect(@enigma.character_set.last).to eq (" ")
   end
 
-  #add mocks and stubs to test fully
   it 'generates a random five digit number' do
-    expect(@enigma.key_generator).to be_a (String)
+    expect(@enigma.key_generator).to be_a String
     expect(@enigma.key_generator.length).to eq (5)
-    # expect(@enigma.key_generator).to eq ("01234")
     
   end
 
   it 'creates an array of 4 key strings from the return value of the key generator' do
-    # key_gen_mock = ("12345")
-    # allow(key_gen_mock).to receive(:key_generator).and_return("12345")
-    expect(@enigma.keys.length).to eq (4)
-    expect(@enigma.keys).to be_a (Array)
-    # expect(@enigma.keys).to eq ([12, 23, 34, 45])
+    expect(@enigma.key_to_four_pairs.length).to eq (4)
+    expect(@enigma.key_to_four_pairs).to be_a (Array)
+    key = []
+    key << @enigma.key[0..1].to_i
+    key << @enigma.key[1..2].to_i
+    key << @enigma.key[2..3].to_i
+    key << @enigma.key[3..4].to_i
+    expect(@enigma.key_to_four_pairs).to eq key
   end
 
   it 'returns todays date as a string' do
@@ -33,17 +34,42 @@ RSpec.describe Enigma do
     expect(@enigma.todays_date.length).to eq (6)
   end
 
-  it 'creates an array of 4 offset based on the date' do
-    expect(@enigma.offsets).to be_a (Array)
-    expect(@enigma.offsets.length).to eq (4)
+  it 'creates an array of 4 offsets based on the date' do
+    expect(@enigma.convert_offset("040895")).to be_a (Array)
+    expect(@enigma.convert_offset("040895").length).to eq (4)
   end
 
   it 'creates a final shift from keys and offsets' do
     expect(@enigma.final_shift).to be_a (Array)
     expect(@enigma.final_shift.length).to eq (4)
+    @enigma.key_to_four_pairs.each.with_index do |offset, index|
+      expect(@enigma.final_shift[index]).to eq @enigma.offsets[index] + @enigma.key_to_four_pairs[index]
+    end
   end
 
-  xit 'can encrypt a message' do
-    expect(@enigma.encrypt("hello world", "02715", "040895")).to eq ({encryption: "keder ohulw", key: "02715", date: "040895"})
+  it 'can convert message to index numbers in alphabet' do
+    expect(@enigma.message_to_char_index('a')).to eq [0]
+    expect(@enigma.message_to_char_index(' ')).to eq [26]
+    expect(@enigma.message_to_char_index('a ')).to eq [0, 26]
+    expect(@enigma.message_to_char_index('A')).to eq [0]
+    expect(@enigma.message_to_char_index('AB')).to eq [0, 1]
   end
-end 
+
+  it 'can shift a number' do
+    expect(@enigma.shift_number(10, 10)).to eq 20
+    expect(@enigma.shift_number(34, 2)).to eq 9
+  end
+
+  it 'can encrypt a message' do
+    expect(@enigma.encrypt('hello world', '02715', '040895')).to eq ({
+      encryption: 'keder ohulw',
+      key: '02715',
+      date: '040895'
+    })
+    # expect(@enigma.encrypt("hello! world!", "02715", "040895")).to eq ({
+      #encryption: "keder! ohulw!", 
+      #key: "02715", 
+      #date: "040895"
+    #})
+  end
+end
