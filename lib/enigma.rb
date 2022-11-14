@@ -57,7 +57,6 @@ class Enigma
     (number + shift_number) %27
   end
 
-  #WIP for decrypt
   def unshift_number(number, shift_number)
     (number - shift_number) %27
   end
@@ -134,7 +133,7 @@ class Enigma
         end
      end
     {
-      encryption: decrypted_message.join.to_s,
+      decryption: decrypted_message.join.to_s,
       key: @key,
       date: offsets
     }
