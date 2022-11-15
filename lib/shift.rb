@@ -15,11 +15,12 @@ module Shift
     ((date.to_i ** 2) % 10000).digits.reverse
   end
 
-  def shift_number(encryption_number, shift_number)
-    (encryption_number + shift_number) %27
+  def shift_number(encrypted_character, shift)
+    (encrypted_character + shift) %27
+    # require 'pry'; binding.pry
   end
 
-  def unshift_number(encryption_number, shift_number)
-    (encryption_number - shift_number) %27
+  def unshift_number(encryption_number, shift)
+    (encryption_number - shift) %27
   end
 end

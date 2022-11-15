@@ -37,9 +37,4 @@ RSpec.describe Shift do
     expect(enigma.unshift_number(10, 10)).to eq 0
     expect(enigma.unshift_number(34, 2)).to eq 5
   end
-
-  # it 'creates a final shift from keys and offsets' do
-  #   expect(enigma.final_shift).to be_a (Array)
-  #   expect(enigma.final_shift.length).to eq (4)
-  # end
 end
