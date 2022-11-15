@@ -1,4 +1,4 @@
-require './shift'
+require_relative 'shift'
 
 class Enigma
 include Shift
