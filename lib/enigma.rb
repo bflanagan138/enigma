@@ -39,27 +39,22 @@ attr_reader :character_set,
     @key = key_input
     @date = date_input
     encrypted_message_to_numeric = message_to_char_index(encrypted_message)
-    # require 'pry'; binding.pry
     decrypted_message = encrypted_message_to_numeric.map.with_index do |character, index|
       if character.class != Integer
         character
       else
-        # require 'pry'; binding.pry
         (character - (key_to_four_pairs[index % 4])) % 27.to_i
       end
     end
-    # require 'pry'; binding.pry
+
     decryption = []
     decrypted_message.each do |character|
-      # require 'pry'; binding.pry
       if character.class != Integer
         decryption << character
       else
         decryption << @character_set.fetch(character)
       end
-     
     end
-    # require 'pry'; binding.pry
     { decryption: decryption.join.to_s, key: key, date: date }
   end
 end

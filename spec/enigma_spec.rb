@@ -20,7 +20,7 @@ RSpec.describe Enigma do
   end
 
   it 'can encrypt a message' do
-    # expect(@enigma.encrypt('hello world')).to be_a Hash
+    expect(@enigma.encrypt('hello world')).to be_a Hash
     expect(@enigma.encrypt('hello world', '02715', '040895')).to eq ({
       encryption: 'keder ohulw',
       key: '02715',
