@@ -1,7 +1,6 @@
 require_relative 'enigma'
 
 class Shift
-
   attr_reader :character_set,
               :key,
               :date

@@ -1,13 +1,17 @@
 require_relative 'shift'
 
 class Enigma
+  def initialize
+    @shift = Shift.new
+  end
 
   def message_to_char_index(message)
+    require 'pry'; binding.pry
     message.downcase.split("").map do |character|
-      if !@character_set.include?(character)
+      if !@shift.character_set.include?(character)
         character
       else 
-        @character_set.find_index(character)
+        @shift.character_set.find_index(character)
       end
     end
   end
