@@ -18,15 +18,18 @@ RSpec.describe Enigma do
     expect(@enigma.key.length).to eq (5)
   end
 
-  it 'creates an array of 4 key strings from the return value of the key generator' do
+  it 'creates an array of 4 key strings from the key' do
     expect(@enigma.key_to_four_pairs.length).to eq (4)
     expect(@enigma.key_to_four_pairs).to be_a (Array)
-    key = []
-    key << @enigma.key[0..1].to_i
-    key << @enigma.key[1..2].to_i
-    key << @enigma.key[2..3].to_i
-    key << @enigma.key[3..4].to_i
-    expect(@enigma.key_to_four_pairs).to eq key
+    # require 'pry'; binding.pry
+    key = "02715"
+    four_keys = []
+    four_keys << @enigma.key[0..1].to_i
+    four_keys << @enigma.key[1..2].to_i
+    four_keys << @enigma.key[2..3].to_i
+    four_keys << @enigma.key[3..4].to_i
+    expect(@enigma.key_to_four_pairs).to eq four_keys
+    expect(@enigma.key_to_four_pairs).to eq []
   end
 
   it 'returns todays date as a string' do

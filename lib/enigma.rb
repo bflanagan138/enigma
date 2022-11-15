@@ -32,12 +32,11 @@ class Enigma
 
   def key_to_four_pairs
     final_keys = []
-    split_keys = key_generator.split("")
+    split_keys = key.split("")
     4.times do |i|
       final_keys << (split_keys[i] + split_keys[i + 1]).to_i
     end
     final_keys
-    require 'pry'; binding.pry
   end
 
   def convert_offset(date_string)
