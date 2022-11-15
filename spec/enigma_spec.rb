@@ -22,7 +22,6 @@ RSpec.describe Enigma do
     expect(@enigma.key_to_four_pairs.length).to eq (4)
     expect(@enigma.key_to_four_pairs).to be_a (Array)
     # require 'pry'; binding.pry
-    key = "02715"
     four_keys = []
     four_keys << @enigma.key[0..1].to_i
     four_keys << @enigma.key[1..2].to_i

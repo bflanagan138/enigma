@@ -1,6 +1,6 @@
 class Enigma
   attr_reader :character_set, 
-              # :key, 
+              :key, 
               :date
 
   def initialize
@@ -15,6 +15,7 @@ class Enigma
     else
       key
     end
+    require 'pry'; binding.pry
   end
 
   # def key_generator
@@ -32,6 +33,7 @@ class Enigma
 
   def key_to_four_pairs
     final_keys = []
+    require 'pry'; binding.pry
     split_keys = key.split("")
     4.times do |i|
       final_keys << (split_keys[i] + split_keys[i + 1]).to_i
