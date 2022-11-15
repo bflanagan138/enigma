@@ -34,10 +34,6 @@ RSpec.describe Enigma do
     expect(@enigma.convert_offset("040895").length).to eq (4)
   end
 
-  it 'creates a final shift from keys and offsets' do
-    expect(@enigma.final_shift).to be_a (Array)
-    expect(@enigma.final_shift.length).to eq (4)
-  end
 
   it 'can convert message to index numbers in alphabet' do
     expect(@enigma.message_to_char_index('a')).to eq [0]
