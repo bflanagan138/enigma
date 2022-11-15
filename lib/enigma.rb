@@ -1,22 +1,30 @@
 class Enigma
   attr_reader :character_set, 
-              :key, 
-              :offsets
+              # :key, 
+              :date
 
   def initialize
     @character_set = ("a".."z").to_a << " "
-    @key = nil
-    @offsets = nil
+    # @key = nil
+    @date = nil
   end
 
-  def key_generator
-    @key =
-      if @key.nil?
-        rand(99999).to_s.rjust(5, "0")
-      else
-        @key
-      end
+  def key(key = '') 
+    if key == ''
+      rand(99999).to_s.rjust(5, "0")
+    else
+      key
+    end
   end
+
+  # def key_generator
+  #   @key =
+  #     if @key.nil?
+  #       rand(99999).to_s.rjust(5, "0")
+  #     else
+  #       @key
+  #     end
+  # end
 
   def todays_date
     Date.today.strftime("%D").delete("/")
@@ -29,6 +37,7 @@ class Enigma
       final_keys << (split_keys[i] + split_keys[i + 1]).to_i
     end
     final_keys
+    require 'pry'; binding.pry
   end
 
   def convert_offset(date_string)
@@ -36,8 +45,8 @@ class Enigma
   end
 
   def final_shift
-    if offsets != nil
-      [key_to_four_pairs, offsets].transpose.map(&:sum)
+    if date != nil
+      [key_to_four_pairs, date].transpose.map(&:sum)
     else 
       [key_to_four_pairs, convert_offset(todays_date)].transpose.map(&:sum)
     end
@@ -61,19 +70,19 @@ class Enigma
     (number - shift_number) %27
   end
 
-  def encrypt(message, keys = '', offsets = '')
-    @key = 
-      if keys == ''
-        key_generator
-      else
-        keys
-      end
+  def encrypt(message, key = '', date = '')
+    # @key = 
+    #   if keys == ''
+    #     key_generator
+    #   else
+    #     keys
+    #   end
 
-      @offsets =
-        if offsets == ''
+      @date =
+        if date == ''
           convert_offset(todays_date)
         else
-          convert_offset(offsets)
+          convert_offset(date)
         end 
 
     message_to_numeric = message_to_char_index(message)
@@ -96,22 +105,22 @@ class Enigma
     {
       encryption: encrypted_message,
       key: @key,
-      date: offsets
+      date: date
     }
   end
 
-  def decrypt(encrypted_message, keys = '', offsets = '')
+  def decrypt(encrypted_message, key = '', date = '')
     @key = 
       if keys == ''
         key_generator
       else
         keys
       end
-      @offsets =
-        if offsets == ''
+      @date =
+        if date == ''
           convert_offset(todays_date)
         else
-          convert_offset(offsets)
+          convert_offset(date)
         end
 
         encrypted_message_to_numeric = message_to_char_index(encrypted_message)
@@ -135,7 +144,7 @@ class Enigma
     {
       decryption: decrypted_message.join.to_s,
       key: @key,
-      date: offsets
+      date: date
     }
   end
 end
