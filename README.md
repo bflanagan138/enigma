@@ -1,4 +1,4 @@
-![Enigma pic Small](https://user-images.githubusercontent.com/109649285/201985348-0b8336b5-c7d6-4a4c-9e76-4eb16c9bb686.jpeg)
+![Enigma pic Medium](https://user-images.githubusercontent.com/109649285/201985492-f5d62df9-4038-49b0-a735-59c954c0e9d4.jpeg)
 
 ***Welcome to my Enigma final project!***
 
