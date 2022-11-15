@@ -7,7 +7,6 @@ class Enigma
 
   def key_to_four_pairs
     final_keys = []
-    # require 'pry'; binding.pry
     split_keys = key.split("")
     4.times do |i|
       final_keys << (split_keys[i] + split_keys[i + 1]).to_i
@@ -46,7 +45,6 @@ class Enigma
   end
 
   def encrypt(message, key = rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%D").delete("/"))
-
     message_to_numeric = message_to_char_index(message)
     message_char_shift = []
     message_to_numeric.each.with_index do |number, index|

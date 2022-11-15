@@ -10,13 +10,6 @@ RSpec.describe Enigma do
     expect(@enigma.character_set.count).to eq (27)
     expect(@enigma.character_set.first).to eq ("a")
     expect(@enigma.character_set.last).to eq (" ")
-    require 'pry'; binding.pry
-    expect(@enigma.date).to eq nil
-  end
-
-  it 'generates a random five digit number if a key is not passed in' do
-    expect(@enigma.key).to be_a String
-    expect(@enigma.key.length).to eq (5)
   end
 
   it 'creates an array of 4 key strings from the key' do
