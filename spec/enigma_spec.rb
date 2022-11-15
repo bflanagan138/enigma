@@ -47,11 +47,6 @@ RSpec.describe Enigma do
     expect(@enigma.message_to_char_index('!?89')).to eq ['!', '?', '8', '9']
   end
 
-  it 'can shift a number' do
-    expect(@enigma.shift_number(10, 10)).to eq 20
-    expect(@enigma.shift_number(34, 2)).to eq 9
-  end
-
   it 'can encrypt a message' do
     expect(@enigma.encrypt('hello world')).to be_a Hash
     expect(@enigma.encrypt('hello world', '02715', '040895')).to eq ({

@@ -1,3 +1,4 @@
+require_relative 'shift'
 class Enigma
   attr_reader :character_set
 
@@ -18,14 +19,6 @@ class Enigma
     ((date_string.to_i ** 2) % 10000).to_s.chars.map(&:to_i)
   end
 
-  def final_shift
-    if date != nil
-      [key_to_four_pairs, date].transpose.map(&:sum)
-    else 
-      [key_to_four_pairs, convert_offset(todays_date)].transpose.map(&:sum)
-    end
-  end
-
   def message_to_char_index(message)
     message.downcase.split("").map do |character|
       if !@character_set.include?(character)
@@ -34,14 +27,6 @@ class Enigma
         @character_set.find_index(character)
       end
     end
-  end
-
-  def shift_number(number, shift_number)
-    (number + shift_number) %27
-  end
-
-  def unshift_number(number, shift_number)
-    (number - shift_number) %27
   end
 
   def encrypt(message, key = rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%D").delete("/"))
