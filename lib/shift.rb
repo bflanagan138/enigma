@@ -1,8 +1,6 @@
 require_relative 'enigma'
-class Shift
 
-  def initialize
-  end
+class Shift
 
   def shift_number(number, shift_number)
     (number + shift_number) %27
