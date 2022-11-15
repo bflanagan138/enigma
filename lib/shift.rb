@@ -12,19 +12,14 @@ module Shift
   end
 
   def convert_offset
-    # require 'pry'; binding.pry
     ((date.to_i ** 2) % 10000).digits.reverse
   end
 
-  def shift_number(number, shift_number)
-    (number + shift_number) %27
+  def shift_number(encryption_number, shift_number)
+    (encryption_number + shift_number) %27
   end
 
-  def unshift_number(number, shift_number)
-    (number - shift_number) %27
+  def unshift_number(encryption_number, shift_number)
+    (encryption_number - shift_number) %27
   end
-
-  # def final_shift
-  #   [key_to_four_pairs, convert_offset].transpose.map(&:sum)
-  # end
 end
