@@ -1,11 +1,7 @@
 ![Enigma pic Medium](https://user-images.githubusercontent.com/109649285/201985492-f5d62df9-4038-49b0-a735-59c954c0e9d4.jpeg)
 
-***Welcome to***
-███████ ███    ██ ██  ██████  ███    ███  █████  
-██      ████   ██ ██ ██       ████  ████ ██   ██ 
-█████   ██ ██  ██ ██ ██   ███ ██ ████ ██ ███████ 
-██      ██  ██ ██ ██ ██    ██ ██  ██  ██ ██   ██ 
-███████ ██   ████ ██  ██████  ██      ██ ██   ██                                                            
+***Welcome to ENIGMA***
+                                                                                               
 This project is a cipher program that accepts a message from a .txt file into the encrypt.rb file, encrypts it based on an encryption key, and then outputs it to another .txt file. Upon completion of the encryption, the terminal command line will output a statement that it has created the file.txt with the key and date (which will be necessary to decrypt, more on that later)
 
 The encryption key takes in a provided 5 digit key string and a 6 digit date string (ddmmyy) or if neither are given, generates a random 5 digit key and assigns todays date. It then manipulates that information to generate 4 different encryption shifts that are applied consecutively across the message to encrypt characters. 
