@@ -10,6 +10,7 @@ RSpec.describe Enigma do
     expect(@enigma.character_set.count).to eq (27)
     expect(@enigma.character_set.first).to eq ("a")
     expect(@enigma.character_set.last).to eq (" ")
+    require 'pry'; binding.pry
     expect(@enigma.date).to eq nil
   end
 
@@ -21,7 +22,6 @@ RSpec.describe Enigma do
   it 'creates an array of 4 key strings from the key' do
     expect(@enigma.key_to_four_pairs.length).to eq (4)
     expect(@enigma.key_to_four_pairs).to be_a (Array)
-    # require 'pry'; binding.pry
     four_keys = []
     four_keys << @enigma.key[0..1].to_i
     four_keys << @enigma.key[1..2].to_i
@@ -60,6 +60,7 @@ RSpec.describe Enigma do
   end
 
   it 'can encrypt a message' do
+    expect(@enigma.encrypt('hello world')).to be_a Hash
     expect(@enigma.encrypt('hello world', '02715', '040895')).to eq ({
       encryption: 'keder ohulw',
       key: '02715',

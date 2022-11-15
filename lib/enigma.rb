@@ -1,39 +1,13 @@
 class Enigma
-  attr_reader :character_set, 
-              :key, 
-              :date
+  attr_reader :character_set
 
   def initialize
     @character_set = ("a".."z").to_a << " "
-    # @key = nil
-    @date = nil
-  end
-
-  def key(key = '') 
-    if key == ''
-      rand(99999).to_s.rjust(5, "0")
-    else
-      key
-    end
-    require 'pry'; binding.pry
-  end
-
-  # def key_generator
-  #   @key =
-  #     if @key.nil?
-  #       rand(99999).to_s.rjust(5, "0")
-  #     else
-  #       @key
-  #     end
-  # end
-
-  def todays_date
-    Date.today.strftime("%D").delete("/")
   end
 
   def key_to_four_pairs
     final_keys = []
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     split_keys = key.split("")
     4.times do |i|
       final_keys << (split_keys[i] + split_keys[i + 1]).to_i
@@ -71,20 +45,7 @@ class Enigma
     (number - shift_number) %27
   end
 
-  def encrypt(message, key = '', date = '')
-    # @key = 
-    #   if keys == ''
-    #     key_generator
-    #   else
-    #     keys
-    #   end
-
-      @date =
-        if date == ''
-          convert_offset(todays_date)
-        else
-          convert_offset(date)
-        end 
+  def encrypt(message, key = rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%D").delete("/"))
 
     message_to_numeric = message_to_char_index(message)
     message_char_shift = []
@@ -110,41 +71,28 @@ class Enigma
     }
   end
 
-  def decrypt(encrypted_message, key = '', date = '')
-    @key = 
-      if keys == ''
-        key_generator
+  def decrypt(encrypted_message, key, date)
+    encrypted_message_to_numeric = message_to_char_index(encrypted_message)
+    character_shift = []
+    encrypted_message_to_numeric.each.with_index do |character, index|
+      if character.class != Integer
+        character_shift << character
       else
-        keys
+        character_shift << unshift_number(character, final_shift[index % 4])
       end
-      @date =
-        if date == ''
-          convert_offset(todays_date)
-        else
-          convert_offset(date)
-        end
+    end
 
-        encrypted_message_to_numeric = message_to_char_index(encrypted_message)
-        character_shift = []
-        encrypted_message_to_numeric.each.with_index do |character, index|
-          if character.class != Integer
-            character_shift << character
-          else
-            character_shift << unshift_number(character, final_shift[index % 4])
-          end
-        end
-
-      decrypted_message = []
-      character_shift.each do |character|
-        if character.class != Integer
-          decrypted_message << character
-        else
-          decrypted_message << @character_set.fetch(character)
-        end
-     end
+    decrypted_message = []
+    character_shift.each do |character|
+      if character.class != Integer
+        decrypted_message << character
+      else
+        decrypted_message << @character_set.fetch(character)
+      end
+    end
     {
       decryption: decrypted_message.join.to_s,
-      key: @key,
+      key: key,
       date: date
     }
   end
