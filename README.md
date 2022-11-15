@@ -1,3 +1,6 @@
+![Enigma pic](https://user-images.githubusercontent.com/109649285/201984994-45bf25a3-31c2-4440-8060-073d56b24348.jpeg)
+
+
 ***Welcome to my Enigma final project!***
 
 This project is a cipher program that accepts a message from a .txt file into the encrypt.rb file, encrypts it based on an encryption key, and then outputs it to another .txt file. Upon completion of the encryption, the terminal command line will output a statement that it has created the file.txt with the key and date (which will be necessary to decrypt, more on that later)
