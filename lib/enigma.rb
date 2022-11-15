@@ -1,21 +1,11 @@
 require_relative 'shift'
 
 class Enigma
-  attr_reader :character_set
 
   def initialize
     
   end
 
-  def key_to_four_pairs
-    require 'pry'; binding.pry
-    final_keys = []
-    split_keys = key.split("")
-    4.times do |i|
-      final_keys << (split_keys[i] + split_keys[i + 1]).to_i
-    end
-    final_keys
-  end
 
   def convert_offset(date_string)
     ((date_string.to_i ** 2) % 10000).to_s.chars.map(&:to_i)

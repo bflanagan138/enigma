@@ -1,9 +1,10 @@
 require './lib/shift'
 require './lib/enigma'
+require 'date'
 
 RSpec.describe Shift do
   before(:each) do
-    @shift = Shift.new
+    @shift = Shift.new(rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%D").delete("/"))
   end
   
   it 'exists and has a character set' do
@@ -11,6 +12,19 @@ RSpec.describe Shift do
     expect(@shift.character_set.first).to eq ("a")
     expect(@shift.character_set.last).to eq (" ")
   end
+
+  it 'creates an array of 4 key strings from the key' do
+    expect(@shift.key_to_four_pairs.length).to eq (4)
+    expect(@shift.key_to_four_pairs).to be_a (Array)
+    four_keys = []
+    four_keys << @shift.key[0..1].to_i
+    four_keys << @shift.key[1..2].to_i
+    four_keys << @shift.key[2..3].to_i
+    four_keys << @shift.key[3..4].to_i
+    expect(@shift.key_to_four_pairs).to eq four_keys
+    expect(@shift.key_to_four_pairs).to eq []
+  end
+
   it 'can shift a number for encryption based on 27 character set' do
     expect(@shift.shift_number(10, 10)).to eq 20
     expect(@shift.shift_number(34, 2)).to eq 9
