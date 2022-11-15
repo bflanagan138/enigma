@@ -1,5 +1,6 @@
 require 'date'
 require './lib/enigma'
+require './lib/shift'
 
 RSpec.describe Enigma do
   before(:each) do
@@ -7,13 +8,6 @@ RSpec.describe Enigma do
   end
   it 'exists' do
     expect(@enigma).to be_a (Enigma)
-  end
-
-  
-
-  it 'creates an array of 4 offsets based on the date' do
-    expect(@enigma.convert_offset("040895")).to be_a (Array)
-    expect(@enigma.convert_offset("040895").length).to eq (4)
   end
 
   it 'can convert message to index numbers in alphabet' do

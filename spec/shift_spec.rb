@@ -4,7 +4,7 @@ require 'date'
 
 RSpec.describe Shift do
   before(:each) do
-    @shift = Shift.new(rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%D").delete("/"))
+    @shift = Shift.new(rand(99999).to_s.rjust(5, "0"), Date.today.strftime("%D").delete("/"))
   end
   
   it 'exists and has a character set' do
@@ -22,7 +22,12 @@ RSpec.describe Shift do
     four_keys << @shift.key[2..3].to_i
     four_keys << @shift.key[3..4].to_i
     expect(@shift.key_to_four_pairs).to eq four_keys
-    expect(@shift.key_to_four_pairs).to eq []
+    expect(@shift.key_to_four_pairs).to be_a Array
+  end
+
+  it 'creates an array of 4 offsets based on the date' do
+    expect(@shift.convert_offset).to be_a (Array)
+    expect(@shift.convert_offset.length).to eq (4)
   end
 
   it 'can shift a number for encryption based on 27 character set' do

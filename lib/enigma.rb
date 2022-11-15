@@ -2,15 +2,6 @@ require_relative 'shift'
 
 class Enigma
 
-  def initialize
-    
-  end
-
-
-  def convert_offset(date_string)
-    ((date_string.to_i ** 2) % 10000).to_s.chars.map(&:to_i)
-  end
-
   def message_to_char_index(message)
     message.downcase.split("").map do |character|
       if !@character_set.include?(character)
@@ -22,7 +13,6 @@ class Enigma
   end
 
   def encrypt(message, key = rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%D").delete("/"))
-    require 'pry'; binding.pry
     message_to_numeric = message_to_char_index(message)
     message_char_shift = []
     message_to_numeric.each.with_index do |number, index|
