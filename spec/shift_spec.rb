@@ -6,6 +6,11 @@ RSpec.describe Shift do
     @shift = Shift.new
   end
   
+  it 'exists and has a character set' do
+    expect(@shift.character_set.count).to eq (27)
+    expect(@shift.character_set.first).to eq ("a")
+    expect(@shift.character_set.last).to eq (" ")
+  end
   it 'can shift a number for encryption based on 27 character set' do
     expect(@shift.shift_number(10, 10)).to eq 20
     expect(@shift.shift_number(34, 2)).to eq 9

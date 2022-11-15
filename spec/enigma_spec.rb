@@ -5,11 +5,8 @@ RSpec.describe Enigma do
   before(:each) do
     @enigma = Enigma.new
   end
-  it 'exists and has attributes' do
+  it 'exists' do
     expect(@enigma).to be_a (Enigma)
-    expect(@enigma.character_set.count).to eq (27)
-    expect(@enigma.character_set.first).to eq ("a")
-    expect(@enigma.character_set.last).to eq (" ")
   end
 
   it 'creates an array of 4 key strings from the key' do
@@ -24,16 +21,10 @@ RSpec.describe Enigma do
     expect(@enigma.key_to_four_pairs).to eq []
   end
 
-  it 'returns todays date as a string' do
-    expect(@enigma.todays_date).to be_a (String)
-    expect(@enigma.todays_date.length).to eq (6)
-  end
-
   it 'creates an array of 4 offsets based on the date' do
     expect(@enigma.convert_offset("040895")).to be_a (Array)
     expect(@enigma.convert_offset("040895").length).to eq (4)
   end
-
 
   it 'can convert message to index numbers in alphabet' do
     expect(@enigma.message_to_char_index('a')).to eq [0]

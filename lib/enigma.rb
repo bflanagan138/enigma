@@ -4,10 +4,11 @@ class Enigma
   attr_reader :character_set
 
   def initialize
-    @character_set = ("a".."z").to_a << " "
+    
   end
 
   def key_to_four_pairs
+    require 'pry'; binding.pry
     final_keys = []
     split_keys = key.split("")
     4.times do |i|
@@ -31,6 +32,7 @@ class Enigma
   end
 
   def encrypt(message, key = rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%D").delete("/"))
+    require 'pry'; binding.pry
     message_to_numeric = message_to_char_index(message)
     message_char_shift = []
     message_to_numeric.each.with_index do |number, index|
@@ -48,11 +50,7 @@ class Enigma
         @character_set[character].to_s
       end
     end.join
-    {
-      encryption: encrypted_message,
-      key: @key,
-      date: date
-    }
+    { encryption: encrypted_message, key: key, date: date }
   end
 
   def decrypt(encrypted_message, key, date)
@@ -74,10 +72,6 @@ class Enigma
         decrypted_message << @character_set.fetch(character)
       end
     end
-    {
-      decryption: decrypted_message.join.to_s,
-      key: key,
-      date: date
-    }
+    { decryption: decrypted_message.join.to_s, key: key, date: date }
   end
 end
