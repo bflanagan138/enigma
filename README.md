@@ -27,17 +27,16 @@ I have learned so much from working on Enigma! Not only has this project given m
 Regarding the evaluation rubric:
   
 ***Strengths and successes***  
-1. My Enigma class with encrypt and decrypt methods are successfully implemented. My encrypt/decrypt command line interfaces are successfully implemented
-2. My project is broken into logical components and appropriately encapsulated
-3. My code is properly indented / spaced, my naming conventions are appropriate. I've done my best to play with enumerables and data structures to identify what I believe are the most appropriate for their given application. Hashes are used for the output where message, key and date are keyed to their respective values
-4. I am writing tests prior to writing code, and both unit and integration testing. I've done my best to think through to address edge cases. Spec helper indicates 96%+ coverage. All tests pass
+1. My Enigma class with encrypt and decrypt methods are successfully implemented, I've also implemented a shift module for the enigma class. My encrypt/decrypt command line interfaces are both successfully implemented and I refactored them to be a concise as I feel they can be.
+2. My project is broken into logical components and appropriately encapsulated, my files are not excessively long. 
+3. My code is properly indented / spaced, my naming conventions are appropriate. I've done my best to play with enumerables and data structures to identify what I believe are the most appropriate for their given application. Hashes are used for the output where :message, :key and :date are keyed to their respective values
+4. I am writing tests prior to writing code, and both unit and integration testing. I've done my best to think through to address edge cases. Spec helper indicates 100%+ coverage. All tests pass
 5. I have more than 4 pull requests and more than 40 commits. With a few exceptions I've committed regularly and separated my commits into appropriate pull requests. 
 6. It works!
 
 ***Areas for Improvement***
-1. My encrypt.rb required an if statement to output the date correctly based on which date was used (todays date or provided date). I know this is because my enigma class is not as clearly and concisely written as it should be. While not ideal, I was happy to have been able to find a working solution even if it is not an optimized solution.
-2. Speaking of the enigma class, it should definitely be refactored. My encrypt and decrypt methods are too long and do too much and should be broken down into helper methods. Existing helper methods should be separated into other classes / modules. I have a branch I've been working on to address this, however I did not get it completed in time to submit. Working through this project makes me realize how much I still get confused with scope and with breaking down large methods into smaller, more digestible bits.
-3. While my naming conventions are appropriate, I feel that some may be a bit long. Could put effort into making them more concise.
-4. There were a few times I got carried away writing code and didn't commit changes often enough. I recognized that when I'm making edits which cause code to break, I'm now more comfortable moving through it to find new solutions than I was a few weeks ago. However this project illustrated for me that when code is breaking but I do feel that progress is being made, I still don't commit changes individually until I can see that I'm back on the right track. That will change in the future as I get more consistent, and I feel the latter half of my time on this project illustrates that I am making progress.
+1. My encrypt and decrypt methods are longer than I would like. Additionally, I tried using .map in the latter half of my decrypt method and it didn't work, still not sure why so I did rely on using the .each method.
+2. While I feel that my naming conventions are appropriate, some may be a bit long. For additional refactoring I would put effort into making them more concise.
+3. There were a few times I got carried away writing code and didn't commit changes often enough. I recognized that when I'm making edits which cause code to break, I'm now more comfortable moving through it to find new solutions than I was a few weeks ago. However this project illustrated for me that when code is breaking but I do feel that progress is being made, I still don't commit changes individually until I can see that I'm back on the right track. That will change in the future as I get more consistent, and I feel the latter half of my time on this project illustrates that I am getting more consistent with commits.
 
 As a whole, I'm really excited about my progress and learning this inning, and Enigma has illustrated for me how much I have grown. 
