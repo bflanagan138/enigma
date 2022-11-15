@@ -15,10 +15,10 @@ RSpec.describe Shift do
     expect(enigma.key_to_four_pairs.length).to eq (4)
     expect(enigma.key_to_four_pairs).to be_a (Array)
     four_keys = []
-    four_keys << enigma.key[0..1].to_i
-    four_keys << enigma.key[1..2].to_i
-    four_keys << enigma.key[2..3].to_i
-    four_keys << enigma.key[3..4].to_i
+    four_keys << enigma.key[0..1].to_i + enigma.convert_offset[0]
+    four_keys << enigma.key[1..2].to_i + enigma.convert_offset[1]
+    four_keys << enigma.key[2..3].to_i + enigma.convert_offset[2]
+    four_keys << enigma.key[3..4].to_i + enigma.convert_offset[3]
     expect(enigma.key_to_four_pairs).to eq four_keys
     expect(enigma.key_to_four_pairs).to be_a Array
   end
@@ -38,8 +38,8 @@ RSpec.describe Shift do
     expect(enigma.unshift_number(34, 2)).to eq 5
   end
 
-  it 'creates a final shift from keys and offsets' do
-    expect(enigma.final_shift).to be_a (Array)
-    expect(enigma.final_shift.length).to eq (4)
-  end
+  # it 'creates a final shift from keys and offsets' do
+  #   expect(enigma.final_shift).to be_a (Array)
+  #   expect(enigma.final_shift.length).to eq (4)
+  # end
 end
