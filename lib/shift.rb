@@ -1,14 +1,6 @@
 require_relative 'enigma'
 
-class Shift
-  attr_reader :character_set,
-              :key,
-              :date
-  def initialize(key, date)
-    @character_set = ("a".."z").to_a << " "
-    @key = key
-    @date = date
-  end
+module Shift
 
   def key_to_four_pairs
     final_keys = []

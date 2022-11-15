@@ -1,39 +1,37 @@
 require './shift'
 
 class Enigma
+include Shift
+attr_reader :character_set,
+            :key,
+            :date
   def initialize
-  
+    @character_set = ("a".."z").to_a << " "
+    @key = key
+    @date = date
   end
 
   def message_to_char_index(message)
-    require 'pry'; binding.pry
     message.downcase.split("").map do |character|
-      if !@shift.character_set.include?(character)
+      if !character_set.include?(character)
         character
       else 
-        @shift.character_set.find_index(character)
+        character_set.find_index(character)
       end
     end
   end
 
-  def encrypt(message, key = rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%D").delete("/"))
+  def encrypt(message, key = rand(99999).to_s.rjust(5, "0"), date = Date.today.strftime("%m%d%y").delete("/"))
     message_to_numeric = message_to_char_index(message)
-    message_char_shift = []
-    message_to_numeric.each.with_index do |number, index|
+   
+    encrypted_message = message_to_numeric.map.with_index do |number, index|
       if number.class != Integer 
-        message_char_shift << number
+        number
       else
-        message_char_shift << shift_number(number, final_shift[index % 4])
+        @character_set[shift_number(number, final_shift[index % 4])].to_s
       end
     end
 
-    encrypted_message = message_char_shift.map do |character|
-      if character.class != Integer
-        character
-      else
-        @character_set[character].to_s
-      end
-    end.join
     { encryption: encrypted_message, key: key, date: date }
   end
 
