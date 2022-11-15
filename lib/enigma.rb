@@ -1,8 +1,8 @@
-require_relative 'shift'
+require './shift'
 
 class Enigma
   def initialize
-    @shift = Shift.new
+  
   end
 
   def message_to_char_index(message)
