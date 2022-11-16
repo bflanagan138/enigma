@@ -23,6 +23,7 @@ Further, once a message has been encrypted, it can then be decrypted. The messag
 * Open the decrypted.txt file to view the decrypted file. It should be identical to the original english.txt file except letters will all be lowercase
   
 ***Project Reflections***
+
 I have learned so much from working on Enigma! Not only has this project given me the opportunity to practice technical coding skills, thinking through logic and creating a working project from scratch that reads and writes between files, but it also has illustrated for me some of the challenges I still struggle with in learning to code. 
   
 Regarding the evaluation rubric:
